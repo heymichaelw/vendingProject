@@ -1,0 +1,21 @@
+{
+  "name": "vendingproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha tests"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.8"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "supertest": "^3.0.0"
+  }
+}
