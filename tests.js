@@ -4,7 +4,52 @@ const app = require("./app");
 const Customer = require('./models/customer');
 const Vendor = require('./models/vendor');
 
+describe("basic API endpoint data tests", function(){
+
+  beforeEach(function(done){
+    Customer.insertMany([
+      {name: "chips", quantity: 3, price: 65},
+      {name: "gum", quantity: 6, price: 35},
+      {name: "soda", quantity: 4, price: 50}
+    ]).then(done());
+  });
+
+  afterEach(function(done){
+    Customer.deleteMany({}).then(done());
+  });
+
+  it("customers api endpoint returns all customer items as json", function(done){
+    request(app)
+      .get("/api/customer/items")
+      .expect(200)
+      .expect(function(res){
+        expect(res.body[0].name).to.equal("chips");
+        expect(res.body[1].name).to.equal("gum");
+        expect(res.body[2].name).to.equal("soda");
+        expect(res.body.length).to.equal(3);
+      }).end(done);
+  });
+});
+
 describe("basic model tests", function(){
+
+  beforeEach(function(done){
+     Customer.deleteMany({}).then(done());
+   });
+
+   afterEach(function(done){
+     Customer.deleteMany({}).then(done());
+   });
+
+   it("test should clean up after itself", function(done){
+     const customer = new Customer().save().then(function(newCustomer){
+       Customer.count().then(function(count){
+         expect(count).to.equal(1);
+         done();
+       });
+     });
+   });
+
     it("can create a customer item in the db and find it with mongoose syntax", function(done){
      const customer = new Customer({name: "chips", quantity: 1, price: 65})
      .save().then(function(newCustomer){
