@@ -18,6 +18,12 @@ app.get("/api/customer/items", function(req, res){
    });
  });
 
+app.post("/api/customer/items/:itemId/purchases", function(req, res){
+  const newCustomer = new Customer(req.body).save().then(function(customer){
+    res.status(201).json({});
+  });
+});
+
 app.get("/api/sanity", function(req, res){
   res.json({hello: "michael"});
 });

@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const request = require('supertest');
-const app = require("./app");
-const Customer = require('./models/customer');
-const Vendor = require('./models/vendor');
+const app = require("../app");
+const Customer = require('../models/customer');
+const Vendor = require('../models/vendor');
 
 describe("basic API endpoint data tests", function(){
 
@@ -16,6 +16,19 @@ describe("basic API endpoint data tests", function(){
 
   afterEach(function(done){
     Customer.deleteMany({}).then(done());
+  });
+
+  it("customers api endpoint allows creation of customer item", function(done){
+    request(app)
+    .post("/api/customer/items/5/purchases")
+    .send({id: 5, name: "apple", quantity: 1, price: 40})
+    .expect(201)
+    .expect(function(res){
+      Customer.count().then(function(count){
+        expect(count).to.equal(4);
+      });
+    })
+    .end(done);
   });
 
   it("customers api endpoint returns all customer items as json", function(done){
