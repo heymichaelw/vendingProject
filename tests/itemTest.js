@@ -4,7 +4,7 @@ const app = require("../app");
 const Item = require('../models/item');
 const Purchase = require('../models/purchase');
 
-describe("basic API endpoint data tests", function(){
+describe("basic item API endpoint data tests", function(){
 
   beforeEach(function(done){
     Item.insertMany([
@@ -20,11 +20,11 @@ describe("basic API endpoint data tests", function(){
 
   // it("items api endpoint allows creation of item", function(done){
   //   request(app)
-  //   .post("/api/customer/items/5/purchases")
+  //   .post("/api/customer/items/:itemId/purchases")
   //   .send({id: 5, name: "apple", quantity: 1, price: 40})
   //   .expect(201)
   //   .expect(function(res){
-  //     Customer.count().then(function(count){
+  //     Item.count().then(function(count){
   //       expect(count).to.equal(4);
   //     });
   //   })
@@ -44,7 +44,7 @@ describe("basic API endpoint data tests", function(){
   });
 });
 
-describe("basic model tests", function(){
+describe("basic item model tests", function(){
 
   beforeEach(function(done){
      Item.deleteMany({}).then(done());

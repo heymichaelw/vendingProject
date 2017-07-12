@@ -24,6 +24,22 @@ app.post("/api/customer/items/:itemId/purchases", function(req, res){
   });
 });
 
+app.get("/api/vendor/purchases", function(req, res){
+  Purchase.find({}).then(function(purchases){
+    res.json(purchases);
+  });
+});
+
+app.get("/api/vendor/money", function(req, res){
+  var totalMoney = 0;
+  Purchase.find({}).then(function(purchases){
+    purchases.forEach(function(purchase){
+      totalMoney = totalMoney + (purchase.price);
+    });
+     res.json({totalMoney: totalMoney});
+  });
+});
+
 app.get("/api/sanity", function(req, res){
   res.json({hello: "michael"});
 });
