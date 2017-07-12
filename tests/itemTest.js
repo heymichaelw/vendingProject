@@ -2,47 +2,47 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const app = require("../app");
 const Item = require('../models/item');
-const Vendor = require('../models/vendor');
+const Purchase = require('../models/purchase');
 
-// describe("basic API endpoint data tests", function(){
-//
-//   beforeEach(function(done){
-//     Customer.insertMany([
-//       {name: "chips", quantity: 3, price: 65},
-//       {name: "gum", quantity: 6, price: 35},
-//       {name: "soda", quantity: 4, price: 50}
-//     ]).then(done());
-//   });
-//
-//   afterEach(function(done){
-//     Customer.deleteMany({}).then(done());
-//   });
-//
-//   it("customers api endpoint allows creation of customer item", function(done){
-//     request(app)
-//     .post("/api/customer/items/5/purchases")
-//     .send({id: 5, name: "apple", quantity: 1, price: 40})
-//     .expect(201)
-//     .expect(function(res){
-//       Customer.count().then(function(count){
-//         expect(count).to.equal(4);
-//       });
-//     })
-//     .end(done);
-//   });
-//
-//   it("customers api endpoint returns all customer items as json", function(done){
-//     request(app)
-//       .get("/api/customer/items")
-//       .expect(200)
-//       .expect(function(res){
-//         expect(res.body[0].name).to.equal("chips");
-//         expect(res.body[1].name).to.equal("gum");
-//         expect(res.body[2].name).to.equal("soda");
-//         expect(res.body.length).to.equal(3);
-//       }).end(done);
-//   });
-// });
+describe("basic API endpoint data tests", function(){
+
+  beforeEach(function(done){
+    Item.insertMany([
+      {name: "chips", quantity: 3, price: 65},
+      {name: "gum", quantity: 6, price: 35},
+      {name: "soda", quantity: 4, price: 50}
+    ]).then(done());
+  });
+
+  afterEach(function(done){
+    Item.deleteMany({}).then(done());
+  });
+
+  // it("items api endpoint allows creation of item", function(done){
+  //   request(app)
+  //   .post("/api/customer/items/5/purchases")
+  //   .send({id: 5, name: "apple", quantity: 1, price: 40})
+  //   .expect(201)
+  //   .expect(function(res){
+  //     Customer.count().then(function(count){
+  //       expect(count).to.equal(4);
+  //     });
+  //   })
+  //   .end(done);
+  // });
+
+  it("items api endpoint returns all items as json", function(done){
+    request(app)
+      .get("/api/customer/items")
+      .expect(200)
+      .expect(function(res){
+        expect(res.body[0].name).to.equal("chips");
+        expect(res.body[1].name).to.equal("gum");
+        expect(res.body[2].name).to.equal("soda");
+        expect(res.body.length).to.equal(3);
+      }).end(done);
+  });
+});
 
 describe("basic model tests", function(){
 

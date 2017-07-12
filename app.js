@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Item = require('./models/item');
-const Vendor = require('./models/vendor');
+const Purchase = require('./models/purchase');
 mongoose.Promise = require('bluebird');
 const app = express();
 
