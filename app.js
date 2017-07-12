@@ -40,6 +40,14 @@ app.get("/api/vendor/money", function(req, res){
   });
 });
 
+app.post("/api/vendor/items", function(req, res){
+  var newItem = new Item({name: "candy", quantity: 4, price: 25}).save().then(function(item){
+    Item.find({}).then(function(items){
+      res.json(items);
+  });
+  });
+});
+
 app.get("/api/sanity", function(req, res){
   res.json({hello: "michael"});
 });

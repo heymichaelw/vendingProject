@@ -18,6 +18,10 @@ describe("basic purchase API endpoint data tests", function(){
     Purchase.deleteMany({}).then(done());
   });
 
+  afterEach(function(done){
+    Item.deleteMany({}).then(done());
+  });
+
   it("purchases api endpoint returns all purchases as json", function(done){
     request(app)
       .get("/api/vendor/purchases")
@@ -34,6 +38,15 @@ describe("basic purchase API endpoint data tests", function(){
     request(app)
     .get("/api/vendor/money")
     .expect(200, {totalMoney: 150}, done);
+  });
+
+  it("can create new item in db by posting to vendor endpoint", function(done){
+    request(app)
+    .post("/api/vendor/items")
+    .expect(200)
+    .expect(function(res){
+      expect(res.body[0].name).to.equal("candy");
+    }).end(done);
   });
 
 });
