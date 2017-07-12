@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Customer = require('./models/customer');
+const Item = require('./models/item');
 const Vendor = require('./models/vendor');
 mongoose.Promise = require('bluebird');
 const app = express();
@@ -13,13 +13,13 @@ app.use(bodyParser.json());
 mongoose.connect(config.mongoURL);
 
 app.get("/api/customer/items", function(req, res){
-   Customer.find({}).then(function(customers){
-     res.json(customers);
+   Item.find({}).then(function(items){
+     res.json(items);
    });
  });
 
 app.post("/api/customer/items/:itemId/purchases", function(req, res){
-  const newCustomer = new Customer(req.body).save().then(function(customer){
+  const newItem = new Item(req.body).save().then(function(item){
     res.status(201).json({});
   });
 });
