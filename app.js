@@ -19,13 +19,12 @@ app.get("/api/customer/items", function(req, res){
    });
  });
 
-app.post("/api/customer/items/:itemName/purchases", function(req, res){
-  Item.find({id: req.params.itemName}).then(function(item){
-    console.log(item.name);
-    // var newQuantity = (item.quantity)--;
-    // item.quantity = newQuantity;
-    // item.save();
-    res.status(201).json(item);
+app.post("/api/customer/items/:itemId/purchases", function(req, res){
+  Item.findById(req.params.itemId).then(function(item){
+    item.quantity--;
+    item.save().then(function(item){
+      res.status(201).json(item);
+    });
   });
 });
 

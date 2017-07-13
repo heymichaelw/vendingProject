@@ -18,15 +18,16 @@ describe("basic item API endpoint data tests", function(){
     Item.deleteMany({}).then(done());
   });
 
-  // it("items api endpoint allows for purchase of item", function(done){
-  //   request(app)
-  //   .post("/api/customer/items/"+item.id+"/purchases")
-  //   .expect(201)
-  //   .expect(function(res){
-  //     expect(res.body.quantity).to.equal(2);
-  //   })
-  //   .end(done);
-  // });
+  it("items api endpoint allows for purchase of item", function(done){
+    const item = new Item({name: "candy", quantity: 3, price: 40}).save().then(function(testItem){
+      request(app)
+      .post("/api/customer/items/"+testItem.id+"/purchases")
+      .expect(201)
+      .expect(function(res){
+        expect(res.body.quantity).to.equal(2);
+      }).end(done);
+    });
+  });
 
   it("items api endpoint returns all items as json", function(done){
     request(app)
