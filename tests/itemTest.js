@@ -36,6 +36,7 @@ describe("basic item API endpoint data tests", function(){
       .expect(function(res){
         expect(res.body.item.quantity).to.equal(2);
         expect(res.body.newPurchase.itemName).to.equal("candy");
+        expect(res.body.change).to.equal(40);
       }).end(done);
     });
   });
