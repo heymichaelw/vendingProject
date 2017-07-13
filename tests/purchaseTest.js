@@ -7,6 +7,10 @@ const Purchase = require('../models/purchase');
 describe("basic purchase API endpoint data tests", function(){
 
   beforeEach(function(done){
+    Purchase.deleteMany({}).then(done());
+  });
+
+  beforeEach(function(done){
     Purchase.insertMany([
       {itemName: "chips", price: 65, bought: new Date()},
       {itemName: "gum", price: 35, bought: new Date()},
@@ -48,6 +52,17 @@ describe("basic purchase API endpoint data tests", function(){
       expect(res.body[0].name).to.equal("candy");
     }).end(done);
   });
+
+  // it("can create new purchase by posting to customer items endpoint", function(done){
+  //   const item = new Item({name: "candy", quantity: 3, price: 40}).save().then(function(testItem){
+  //     request(app)
+  //     .post("/api/customer/items/"+testItem.id+"/purchases")
+  //     .expect(201)
+  //     .expect(function(res){
+  //       expect(res.body.quantity).to.equal(2);
+  //     }).end(done);
+  //   });
+  // });
 
 });
 

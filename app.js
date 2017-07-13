@@ -23,7 +23,9 @@ app.post("/api/customer/items/:itemId/purchases", function(req, res){
   Item.findById(req.params.itemId).then(function(item){
     item.quantity--;
     item.save().then(function(item){
-      res.status(201).json(item);
+      var newPurchase = new Purchase({itemName: item.name, price: item.price, bought: new Date()}).save().then(function(purchase){
+        res.status(201).json({item: item, newPurchase: purchase});
+      });
     });
   });
 });
