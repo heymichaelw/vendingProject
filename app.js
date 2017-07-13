@@ -54,6 +54,15 @@ app.post("/api/vendor/items", function(req, res){
   });
 });
 
+app.put("/api/vendor/items/:itemId", function(req, res){
+  Item.findById(req.params.itemId).then(function(item){
+    item.name = "hamburger";
+    item.save().then(function(item){
+      res.json(item);
+    });
+  });
+});
+
 app.get("/api/sanity", function(req, res){
   res.json({hello: "michael"});
 });
