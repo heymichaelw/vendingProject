@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Item = require('./models/item');
 const Purchase = require('./models/purchase');
+const parseurl = require('parseurl');
 mongoose.Promise = require('bluebird');
 const app = express();
 
@@ -18,9 +19,13 @@ app.get("/api/customer/items", function(req, res){
    });
  });
 
-app.post("/api/customer/items/:itemId/purchases", function(req, res){
-  const newItem = new Item(req.body).save().then(function(item){
-    res.status(201).json({});
+app.post("/api/customer/items/:itemName/purchases", function(req, res){
+  Item.find({id: req.params.itemName}).then(function(item){
+    console.log(item.name);
+    // var newQuantity = (item.quantity)--;
+    // item.quantity = newQuantity;
+    // item.save();
+    res.status(201).json(item);
   });
 });
 
